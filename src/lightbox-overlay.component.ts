@@ -24,7 +24,7 @@ export class LightboxOverlayComponent implements AfterViewInit, OnDestroy {
   @Input() options: any;
   @Input() cmpRef: any;
   private _subscription: Subscription;
-  private _classList: string;
+  private _classList: any; // use 'any' to prevent TS6133
   constructor(
     private _elemRef: ElementRef,
     private _rendererRef: Renderer,
