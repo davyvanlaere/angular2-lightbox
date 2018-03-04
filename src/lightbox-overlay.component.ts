@@ -6,7 +6,8 @@ import {
   Inject,
   Input,
   OnDestroy,
-  Renderer
+  Renderer,
+  HostBinding
 } from '@angular/core';
 import { DOCUMENT } from '@angular/platform-browser';
 import { LightboxEvent, LIGHTBOX_EVENT, IEvent } from './lightbox-event.service';
@@ -17,21 +18,22 @@ import { Subscription } from 'rxjs/Subscription';
   template: '',
   host: {
     '(click)': 'close()',
-    '[class]': '_classList'
   }
 })
 export class LightboxOverlayComponent implements AfterViewInit, OnDestroy {
+  
   @Input() options: any;
   @Input() cmpRef: any;
+  private isClosed: boolean = false;
   private _subscription: Subscription;
-  private _classList: any; // use 'any' to prevent TS6133
+  @HostBinding('class') classList: string;
   constructor(
     private _elemRef: ElementRef,
     private _rendererRef: Renderer,
     private _lightboxEvent: LightboxEvent,
     @Inject(DOCUMENT) private _documentRef: any
   ) {
-    this._classList = 'lightboxOverlay animation fadeInOverlay';
+    this.classList = 'lightboxOverlay animation fadeInOverlay';
     this._subscription = this._lightboxEvent.lightboxEvent$.subscribe((event: IEvent) => this._onReceivedEvent(event));
   }
 
@@ -78,7 +80,7 @@ export class LightboxOverlayComponent implements AfterViewInit, OnDestroy {
   }
 
   private _end(): void {
-    this._classList = 'lightboxOverlay animation fadeOutOverlay';
+    this.classList = 'lightboxOverlay animation fadeOutOverlay';
 
     // queue self destruction after the animation has finished
     // FIXME: not sure if there is any way better than this
