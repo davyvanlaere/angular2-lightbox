@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { Lightbox, LightboxConfig, LightboxEvent, LIGHTBOX_EVENT, IEvent, IAlbum } from 'angular2-lightbox';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -22,7 +22,7 @@ export class AppComponent {
   constructor(
     private _lightbox: Lightbox,
     private _lightboxEvent: LightboxEvent,
-    private _lighboxConfig: LightboxConfig
+    public _lighboxConfig: LightboxConfig
   ) {
     this.albums = [];
     this._options = {};

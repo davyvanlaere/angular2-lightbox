@@ -24,7 +24,6 @@ export class LightboxOverlayComponent implements AfterViewInit, OnDestroy {
   
   @Input() options: any;
   @Input() cmpRef: any;
-  private isClosed: boolean = false;
   private _subscription: Subscription;
   @HostBinding('class') classList: string;
   constructor(
